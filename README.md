@@ -11,6 +11,12 @@ TODO: edit some file, add link or IP to server
 
 ## Development
 
+### Tested versions
+- Python 3.9.6
+- Anki 2.1+
+
+### Guide
+
 1) `git clone https://github.com/glebmark/anki-reference-addon.git`
 2) Optional for MacOS or GNU/Linux: create symlink, so your addon directory will mirror development directory:
 

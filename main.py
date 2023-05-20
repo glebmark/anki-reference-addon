@@ -7,19 +7,23 @@ from aqt.qt import *
 from anki.importing import TextImporter
 
 tempFilePath = "/Users/gleb/Library/Application Support/Anki2/addons21/anki_reference_addon"
-tempFileName = "/sample.txt"
-path = tempFilePath + tempFileName
+tempFileName = "/temp.txt"
+pathForTitles = tempFilePath + tempFileName
+
+pathForResource = "/Users/gleb/Library/Application Support/Anki2/testuser/collection.media"
+
+publicUrl = 'http://localhost:3000'
 
 def opener(path, flags):
     return os.open(path, flags, 0o777)
 
 def importTitles():
-    ti = TextImporter(mw.col, path)
+    ti = TextImporter(mw.col, pathForTitles)
     ti.initMapping()
     ti.run()
 
 def loadTitlesAndSave() -> None:
-    responseJson = requests.get('http://localhost:3000/title')
+    responseJson = requests.get(publicUrl + '/title')
     response = json.loads(responseJson.content)
     text = response['text']
 
@@ -27,15 +31,21 @@ def loadTitlesAndSave() -> None:
         showInfo('All titles have been saved')
         return
 
-    # TODO save audio files to folder
-
-    with open(path , "wb", opener=opener) as f:
+    with open(pathForTitles , "wb", opener=opener) as f:
         f.write(text.encode('utf-8'))
+
+    uuids = response['audioUUIDs']
+
+    for uuid in uuids:
+        responseResource = requests.get(publicUrl + '/resource/' + uuid)
+        resourceFileName = "/" + uuid + ".mp3"
+        with open(pathForResource + resourceFileName, "wb", opener=opener) as f:
+            f.write(responseResource.content)
 
     importTitles()
 
     # confirm titles were saved
-    requests.post('http://localhost:3000/title', params={'titles': response['titleIds']})
+    requests.post(publicUrl + '/title', params={'titles': response['titleIds']})
 
     showInfo(str(response['titleNames']))
 

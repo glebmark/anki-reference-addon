@@ -19,22 +19,27 @@ def importTitles():
     ti.run()
 
 def loadTitlesAndSave() -> None:
-    responseJson = requests.get('http://localhost:3000/title/me')
-
+    responseJson = requests.get('http://localhost:3000/title')
     response = json.loads(responseJson.content)
+    text = response['text']
+
+    if "".__eq__(text):
+        showInfo('All titles have been saved')
+        return
 
     # TODO save audio files to folder
 
-    with open(path , "w", opener=opener) as f:
-        f.write(str(response['text']))
-
+    with open(path , "wb", opener=opener) as f:
+        f.write(text.encode('utf-8'))
 
     importTitles()
 
-    # TODO get POST endpoint with successfully saved ids
-    # TODO showInfo names of titles which have been saved
+    # confirm titles were saved
+    requests.post('http://localhost:3000/title', params={'titles': response['titleIds']})
 
-    showInfo(str(response['text']))
+    showInfo(str(response['titleNames']))
+
+# TODO make separate button for french?
 
 
 action = QAction("Load new cards", mw)

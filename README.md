@@ -37,3 +37,10 @@ As it isn't standalone app but addon to Anki, variables couldn't be set in envir
 
     `ln -s /Users/username/code/python/anki_reference_addon /Users/username/Library/Application\ Support/Anki2/addons21`
 3) Follow development instructions in [Anki's documentation](https://addon-docs.ankiweb.net/intro.html)
+
+### Examples
+There is example of what would be downloaded from Bot and then saved to Anki, for example if word 'plain' has been added:
+```
+<b>plain</b><br><br>pleɪn[sound:54d8bf35-efb0-4271-bbc6-f81709763896.mp3]adjective<br><br><br><br>She wore a plain black dress.[sound:cf16ac26-77e6-4d2d-b0f7-ab6fef45e2cd.mp3]<br><br>We've chosen a plain carpet (= one without a pattern) and patterned curtains.[sound:233bce9f-7a7b-4c13-b027-905f116c4abc.mp3]<br><br>	not decorated in any way; with nothing added: [sound:decc2a1a-a836-4d69-9bee-577ad27287ef.mp3]<br><br>
+not decorated in any way; with nothing added: [sound:decc2a1a-a836-4d69-9bee-577ad27287ef.mp3]<br><br>
+```

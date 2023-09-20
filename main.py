@@ -6,13 +6,13 @@ from aqt.utils import showInfo, qconnect
 from aqt.qt import *
 from anki.importing import TextImporter
 
+# set these 3 vars
 tempFilePath = "/Users/gleb/Library/Application Support/Anki2/addons21/anki_reference_addon"
+pathForResource = "/Users/gleb/Library/Application Support/Anki2/testuser/collection.media"
+publicUrl = 'http://localhost:3000'
+
 tempFileName = "/temp.txt"
 pathForTitles = tempFilePath + tempFileName
-
-pathForResource = "/Users/gleb/Library/Application Support/Anki2/testuser/collection.media"
-
-publicUrl = 'http://localhost:3000'
 
 def opener(path, flags):
     return os.open(path, flags, 0o777)
